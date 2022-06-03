@@ -2,10 +2,10 @@
 const cases_props = 3;
 let canvas, ctx;
 let line_width = 15;
-let nb_player = 2;
+const nb_player = 2;
+const require_to_win = 3;
 
 // GAME VARIABLES
-// let grid = [];
 let grid = new Array(cases_props);
 for (var i = 0; i < cases_props; i++) {
 	grid[i] = new Array(cases_props).fill(0);
@@ -22,6 +22,7 @@ function init() {
 
 function game_loop() {
 	render();
+	check_win();
 	requestAnimationFrame(game_loop);
 }
 
@@ -102,5 +103,33 @@ function click_handler(event) {
 	if (grid[x_case][y_case] == 0) {
 		grid[x_case][y_case] = player_turn;
 		player_turn = player_turn == 1 ? 2 : 1;
+	}
+}
+
+function check_win() {
+	check_win_horizontal();
+	return false;
+}
+
+function check_win_horizontal() {
+	let count1 = 0;
+	let count2 = 0;
+	for (let y = 0; y < cases_props; y++) {
+		for (let x = 0; x < cases_props; x++) {
+			if (grid[x][y] == 1) {
+				count1++;
+				count2 = 0;
+			}
+			if (grid[x][y] == 2) {
+				count1 = 0;
+				count2++;
+			}
+			if (count1 >= require_to_win) {
+				alert("1 won");
+			}
+			if (count2 >= require_to_win) {
+				alert("2 won");
+			}
+		}
 	}
 }
