@@ -108,7 +108,8 @@ function click_handler(event) {
 
 function check_win() {
 	check_win_horizontal();
-	return false;
+	check_win_vertical();
+	check_win_diag();
 }
 
 function check_win_horizontal() {
@@ -124,12 +125,177 @@ function check_win_horizontal() {
 				count1 = 0;
 				count2++;
 			}
-			if (count1 >= require_to_win) {
-				alert("1 won");
+		}
+		if (count1 >= require_to_win) {
+			alert("1 won");
+		}
+		if (count2 >= require_to_win) {
+			alert("2 won");
+		}
+		count1 = 0;
+		count2 = 0;
+	}
+}
+
+function check_win_vertical() {
+	let count1 = 0;
+	let count2 = 0;
+	for (let x = 0; x < cases_props; x++) {
+		for (let y = 0; y < cases_props; y++) {
+			if (grid[x][y] == 1) {
+				count1++;
+				count2 = 0;
 			}
-			if (count2 >= require_to_win) {
-				alert("2 won");
+			if (grid[x][y] == 2) {
+				count1 = 0;
+				count2++;
 			}
 		}
+		if (count1 >= require_to_win) {
+			alert("1 won");
+		}
+		if (count2 >= require_to_win) {
+			alert("2 won");
+		}
+		count1 = 0;
+		count2 = 0;
 	}
+}
+
+function check_win_diag() {
+	if (cases_props == require_to_win) {
+		check_win_large_diags();
+	} else {
+		check_win_all_diags_tl_to_br();
+		check_win_all_diags_tr_to_bl();
+	}
+}
+
+function check_win_all_diags_tl_to_br() {
+	let count1 = 0;
+	let count2 = 0;
+	for (let i = 0; i < cases_props; i++) {
+		for (let k = i; k < cases_props; k++) {
+			if (grid[k][k - i] == 1) {
+				count1++;
+				count2 = 0;
+			}
+			if (grid[k][k - i] == 2) {
+				count1 = 0;
+				count2++;
+			}
+		}
+		if (count1 >= require_to_win) {
+			alert("1 won");
+		}
+		if (count2 >= require_to_win) {
+			alert("2 won");
+		}
+		count1 = 0;
+		count2 = 0;
+
+		for (let k = i; k < cases_props; k++) {
+			if (grid[k - i][k] == 1) {
+				count1++;
+				count2 = 0;
+			}
+			if (grid[k - i][k] == 2) {
+				count1 = 0;
+				count2++;
+			}
+		}
+		if (count1 >= require_to_win) {
+			alert("1 won");
+		}
+		if (count2 >= require_to_win) {
+			alert("2 won");
+		}
+		count1 = 0;
+		count2 = 0;
+	}
+}
+
+function check_win_all_diags_tr_to_bl() {
+	let count1 = 0;
+	let count2 = 0;
+	for (let i = 0; i < cases_props; i++) {
+		for (let k = i; k < cases_props; k++) {
+			if (grid[k][cases_props - 1 - k + i] == 1) {
+				count1++;
+				count2 = 0;
+			}
+			if (grid[k][cases_props - 1 - k + i] == 2) {
+				count1 = 0;
+				count2++;
+			}
+		}
+		if (count1 >= require_to_win) {
+			alert("1 won");
+		}
+		if (count2 >= require_to_win) {
+			alert("2 won");
+		}
+		count1 = 0;
+		count2 = 0;
+
+		for (let k = i; k < cases_props; k++) {
+			if (grid[cases_props - 1 - k + i][k] == 1) {
+				count1++;
+				count2 = 0;
+			}
+			if (grid[cases_props - 1 - k + i][k] == 2) {
+				count1 = 0;
+				count2++;
+			}
+		}
+		if (count1 >= require_to_win) {
+			alert("1 won");
+		}
+		if (count2 >= require_to_win) {
+			alert("2 won");
+		}
+		count1 = 0;
+		count2 = 0;
+	}
+}
+
+function check_win_large_diags() {
+	let count1 = 0,
+		count2 = 0;
+	for (let k = 0; k < cases_props; k++) {
+		if (grid[k][k] == 1) {
+			count1++;
+			count2 = 0;
+		}
+		if (grid[k][k] == 2) {
+			count1 = 0;
+			count2++;
+		}
+	}
+	if (count1 >= require_to_win) {
+		alert("1 won");
+	}
+	if (count2 >= require_to_win) {
+		alert("2 won");
+	}
+	count1 = 0;
+	count2 = 0;
+	for (let l = 0; l < cases_props; l++) {
+		if (grid[l][cases_props - 1 - l] == 1) {
+			count1++;
+			count2 = 0;
+		}
+		if (grid[l][cases_props - 1 - l] == 2) {
+			count1 = 0;
+			count2++;
+		}
+	}
+	if (count1 >= require_to_win) {
+		alert("1 won");
+	}
+	if (count2 >= require_to_win) {
+		alert("2 won");
+	}
+	count1 = 0;
+	count2 = 0;
 }
