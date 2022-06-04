@@ -1,12 +1,11 @@
 // MACROS
 const cases_props = 3;
-let canvas, ctx;
 const line_width = 15;
-const nb_player = 2;
 const require_to_win = 3;
 
 
 // GAME VARIABLES
+let canvas, ctx;
 let grid = new Array(cases_props);
 for (var i = 0; i < cases_props; i++) {
 	grid[i] = new Array(cases_props).fill(0);
