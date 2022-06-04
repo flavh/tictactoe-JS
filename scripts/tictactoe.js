@@ -1,9 +1,10 @@
 // MACROS
 const cases_props = 3;
 let canvas, ctx;
-let line_width = 15;
+const line_width = 15;
 const nb_player = 2;
 const require_to_win = 3;
+
 
 // GAME VARIABLES
 let grid = new Array(cases_props);
@@ -11,19 +12,27 @@ for (var i = 0; i < cases_props; i++) {
 	grid[i] = new Array(cases_props).fill(0);
 }
 
+let winner=0;
 let player_turn = 1;
 
 function init() {
 	canvas = document.getElementById("canvas");
 	canvas.addEventListener("click", click_handler);
 	ctx = canvas.getContext("2d");
+	ctx.lineWidth=line_width;
+	ctx.strokeStyle="#334";
 	game_loop();
 }
 
 function game_loop() {
 	render();
-	check_win();
-	requestAnimationFrame(game_loop);
+	if (winner==0) {
+		check_win();
+		requestAnimationFrame(game_loop);
+	}else{
+		alert("Player "+winner+" won");
+	}
+
 }
 
 function render() {
@@ -33,13 +42,13 @@ function render() {
 }
 
 function draw_grid() {
-	for (let index = 1; index <= cases_props; index++) {
+	for (let index = 1; index < cases_props; index++) {
 		ctx.beginPath();
 		ctx.moveTo((index / cases_props) * canvas.width, 0);
 		ctx.lineTo((index / cases_props) * canvas.width, canvas.height);
 		ctx.stroke();
 	}
-	for (let index = 1; index <= cases_props; index++) {
+	for (let index = 1; index < cases_props; index++) {
 		ctx.beginPath();
 		ctx.moveTo(0, (index / cases_props) * canvas.height);
 		ctx.lineTo(canvas.width, (index / cases_props) * canvas.height);
@@ -87,7 +96,7 @@ function draw_cross(x, y) {
 }
 
 function draw_circle(x, y) {
-	ray = ((1 / cases_props) * canvas.width) / 2;
+	ray = (((1 / cases_props) * canvas.width) / 2)*0.85;
 	beginX = ((x + 0.5) / cases_props) * canvas.width;
 	beginY = ((y + 0.5) / cases_props) * canvas.height;
 	ctx.beginPath();
@@ -127,10 +136,10 @@ function check_win_horizontal() {
 			}
 		}
 		if (count1 >= require_to_win) {
-			alert("1 won");
+			winner=1;
 		}
 		if (count2 >= require_to_win) {
-			alert("2 won");
+			winner=2;
 		}
 		count1 = 0;
 		count2 = 0;
@@ -152,10 +161,10 @@ function check_win_vertical() {
 			}
 		}
 		if (count1 >= require_to_win) {
-			alert("1 won");
+			winner=1;
 		}
 		if (count2 >= require_to_win) {
-			alert("2 won");
+			winner=2;
 		}
 		count1 = 0;
 		count2 = 0;
@@ -186,10 +195,10 @@ function check_win_all_diags_tl_to_br() {
 			}
 		}
 		if (count1 >= require_to_win) {
-			alert("1 won");
+			winner=1;
 		}
 		if (count2 >= require_to_win) {
-			alert("2 won");
+			winner=2;
 		}
 		count1 = 0;
 		count2 = 0;
@@ -205,10 +214,10 @@ function check_win_all_diags_tl_to_br() {
 			}
 		}
 		if (count1 >= require_to_win) {
-			alert("1 won");
+			winner=1;
 		}
 		if (count2 >= require_to_win) {
-			alert("2 won");
+			winner=2;
 		}
 		count1 = 0;
 		count2 = 0;
@@ -230,10 +239,10 @@ function check_win_all_diags_tr_to_bl() {
 			}
 		}
 		if (count1 >= require_to_win) {
-			alert("1 won");
+			winner=1;
 		}
 		if (count2 >= require_to_win) {
-			alert("2 won");
+			winner=2;
 		}
 		count1 = 0;
 		count2 = 0;
@@ -249,10 +258,10 @@ function check_win_all_diags_tr_to_bl() {
 			}
 		}
 		if (count1 >= require_to_win) {
-			alert("1 won");
+			winner=1;
 		}
 		if (count2 >= require_to_win) {
-			alert("2 won");
+			winner=2;
 		}
 		count1 = 0;
 		count2 = 0;
@@ -273,10 +282,10 @@ function check_win_large_diags() {
 		}
 	}
 	if (count1 >= require_to_win) {
-		alert("1 won");
+		winner=1;
 	}
 	if (count2 >= require_to_win) {
-		alert("2 won");
+		winner=2;
 	}
 	count1 = 0;
 	count2 = 0;
@@ -291,10 +300,10 @@ function check_win_large_diags() {
 		}
 	}
 	if (count1 >= require_to_win) {
-		alert("1 won");
+		winner=1;
 	}
 	if (count2 >= require_to_win) {
-		alert("2 won");
+		winner=2;
 	}
 	count1 = 0;
 	count2 = 0;
